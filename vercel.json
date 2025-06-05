@@ -9,15 +9,10 @@
       }
     }
   ],
-  "env": {
-    "PYTHON_PATH": "python",
-    "NLTK_DATA": "/var/task/nltk_data",
-    "PYTHON_VERSION": "3.9"
-  },
   "routes": [
     {
-      "src": "scripts/ml_question_recommender.py",
-      "dest": "api/chatbot/route.ts"
+      "src": "/api/chatbot",
+      "dest": "scripts/ml_question_recommender.py"
     }
   ]
 }
