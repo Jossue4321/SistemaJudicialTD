@@ -132,7 +132,7 @@ async function getRecommendedQuestions(userHistory: any[]): Promise<any[]> {
       });
 
       const scriptPath = path.join(process.cwd(), "scripts", "ml_question_recommender.py");
-      const pythonProcess = spawn("python", [scriptPath, requestData]);
+      const pythonProcess = spawn("python3", [scriptPath, requestData]);
 
       let result = "";
       pythonProcess.stdout.on("data", (data) => {

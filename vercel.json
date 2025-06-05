@@ -10,6 +10,7 @@
     }
   ],
   "env": {
+    "PYTHON_PATH": "python3",
     "PYTHON_VERSION": "3.9"
   },
   "routes": [
