@@ -11,11 +11,12 @@
   ],
   "env": {
     "PYTHON_PATH": "python",
-    "NLTK_DATA": "/var/task/nltk_data"
+    "NLTK_DATA": "/var/task/nltk_data",
+    "PYTHON_VERSION": "3.13.2"
   },
   "routes": [
     {
-      "src": "/api/chatbot",
+      "src": "scripts/ml_question_recommender.py",
       "dest": "api/chatbot/route.ts"
     }
   ]
