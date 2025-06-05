@@ -121,52 +121,52 @@ async function getSystemRecommendations(supabase: any, topic: string | null) {
 async function getRecommendedQuestions(userHistory: any[]): Promise<any[]> {
   return new Promise((resolve, reject) => {
     try {
-      // Preparar los datos para el script de Python
-      const historyForML = userHistory.map((item, index) => ({
-        id: index + 1,
+      // Preparar los datos para Python en el formato correcto
+      const historyForML = userHistory.map(item => ({
         question: item.question,
-        category: item.category,
+        category: item.category || 'general' // Asegurar que siempre haya categoría
       }));
 
       const requestData = JSON.stringify({
-        user_history: historyForML,
+        user_history: historyForML  // Ahora coincide con lo que Python espera
       });
 
-      // Ruta al script de Python
       const scriptPath = path.join(process.cwd(), "scripts", "ml_question_recommender.py");
-
-      // Ejecutar el script de Python como proceso hijo
       const pythonProcess = spawn("python", [scriptPath, requestData]);
 
       let result = "";
-      let error = "";
-
       pythonProcess.stdout.on("data", (data) => {
         result += data.toString();
       });
 
       pythonProcess.stderr.on("data", (data) => {
-        error += data.toString();
+        console.error(`Python Error: ${data}`);
       });
 
       pythonProcess.on("close", (code) => {
         if (code !== 0) {
           console.error(`Python process exited with code ${code}`);
-          console.error(`Error: ${error}`);
-          resolve([]); // Devolver array vacío en caso de error
+          resolve([]);
           return;
         }
 
         try {
-          const parsedResult = JSON.parse(result);
-          if (parsedResult.status === "success" && Array.isArray(parsedResult.recommendations)) {
-            resolve(parsedResult.recommendations);
+          const parsed = JSON.parse(result);
+          if (parsed.status === "success") {
+            // Mapear a la estructura que espera tu frontend
+            const recommendations = parsed.recommendations.map((rec: any, idx: number) => ({
+              id: idx + 1,
+              question: rec.question,
+              category: rec.category,
+              count: Math.round(rec.similarity * 100) // Convertir similitud a porcentaje
+            }));
+            resolve(recommendations);
           } else {
-            console.error("Invalid response format from Python script");
+            console.error("Python script returned error:", parsed.message);
             resolve([]);
           }
-        } catch (parseError) {
-          console.error("Error parsing Python script output:", parseError);
+        } catch (e) {
+          console.error("Error parsing Python output:", e);
           resolve([]);
         }
       });

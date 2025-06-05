@@ -1,0 +1,15 @@
+click==8.2.1
+colorama==0.4.6
+joblib==1.5.1
+nltk==3.9.1
+numpy==1.23.5           # Cambié la versión de numpy a una compatible con scikit-learn
+pandas==2.3.0
+python-dateutil==2.9.0
+pytz==2025.2
+regex==2024.11.6
+scikit-learn==1.1.2    # Cambié a una versión más estable de scikit-learn
+scipy==1.9.3
+six==1.17.0
+threadpoolctl==3.6.0
+tqdm==4.67.1
+tzdata==2025.2

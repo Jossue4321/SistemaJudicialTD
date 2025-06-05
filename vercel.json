@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "scripts/ml_question_recommender.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxDuration": 10
+      }
+    }
+  ],
+  "env": {
+    "PYTHON_PATH": "python",
+    "NLTK_DATA": "/var/task/nltk_data"
+  },
+  "routes": [
+    {
+      "src": "/api/chatbot",
+      "dest": "api/chatbot/route.ts"
+    }
+  ]
+}
