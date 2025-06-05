@@ -1,0 +1,3 @@
+# Ignorar el directorio de modelos o archivos grandes
+models/
+data/
