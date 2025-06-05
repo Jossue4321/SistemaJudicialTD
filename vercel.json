@@ -12,7 +12,7 @@
   "env": {
     "PYTHON_PATH": "python",
     "NLTK_DATA": "/var/task/nltk_data",
-    "PYTHON_VERSION": "3.13.2"
+    "PYTHON_VERSION": "3.9"
   },
   "routes": [
     {

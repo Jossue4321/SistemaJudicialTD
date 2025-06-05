@@ -1,4 +1,5 @@
-scikit-learn==1.0.2
-nltk==3.6.3
-pandas==1.3.3
-numpy==1.21.2
+distutils
+scikit-learn==1.6.1
+nltk==3.9.1
+pandas==2.3.0
+numpy==2.2.6
